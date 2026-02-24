@@ -4,9 +4,9 @@ module.exports.index = async(req, res) => {
     let sortOption = {};
     console.log("QUERY ", req.query);
     if (req.query.sort === "price_asc") {
-        sortOption = { price: 1 }; // ascending ke liye moingo main yeh option hota
+        sortOption = { price: 1 }; 
     } else if (req.query.sort === "price_desc") {
-        sortOption = { price: -1 }; // descending ke liye moingo main yeh option hota
+        sortOption = { price: -1 };
     }
     let query = {};
 
