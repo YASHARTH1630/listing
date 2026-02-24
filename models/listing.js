@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
-const Review = require("./review.js"); //wahi naam jo export main h
+const Review = require("./review.js"); 
 const User = require("./user.js");
 const listSchema = new Schema({
     title: {
@@ -18,7 +18,7 @@ const listSchema = new Schema({
     },
     reviews: [{
         type: Schema.Types.ObjectId,
-        ref: "Review" //wahi naam jo export main likha h
+        ref: "Review" 
     }],
     owner: {
         type: Schema.Types.ObjectId,
