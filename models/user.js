@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const passportLocalMongoose = require("passport-local-mongoose").default;
 
-const userSchema = new mongoose.Schema({ //username is preexist here
+const userSchema = new mongoose.Schema({ 
     email: {
         type: String,
         required: true,
