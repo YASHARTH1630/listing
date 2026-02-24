@@ -128,7 +128,7 @@ app.use("/signup", signup);
     }
 });*/
 app.get("/", (req, res) => {
-    res.redirect("listening");
+    res.redirect("/listening");
 });
 
 app.listen(PORT, () => {
