@@ -10,7 +10,7 @@ const List = require("./models/listing.js");
 const Review = require("./models/review.js"); //uppercase
 const listingController = require("./controller/listing.js");
 const reviewController = require("./controller/review.js");
-let port = 8010;
+const PORT = process.env.PORT || 8010;
 const methodOverride = require("method-override");
 const wrapsync = require("./wrapsync.js");
 const cookieParser = require("cookie-parser"); //requirement for parsing cookie
@@ -128,10 +128,10 @@ app.use("/signup", signup);
     }
 });*/
 app.get("/", (req, res) => {
-    res.send("working");
+    res.redirect("listening");
 });
 
-app.listen(8010, () => {
+app.listen(PORT, () => {
     console.log("listening to the port 8010");
 });
 const injectImageForJoi = (req, res, next) => { //
