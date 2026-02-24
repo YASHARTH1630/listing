@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+        edit
+    </title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <nav class="bg-blue-600 text-white px-6 py-3 flex items-center justify-between shadow-md" style="position:fixed; width:100vw; max-width:100vw">
+        <!-- Left-most brand -->
+        <div class="text-2xl font-bold tracking-wide">
+            Travels Listing
+        </div>
+
+        <!-- Links -->
+        <div class="space-x-6">
+            <a href="/listening" class="hover:text-yellow-300 transition">Home</a>
+            <a href="/new_list" class="hover:text-yellow-300 transition">Add New Place</a>
+
+        </div>
+    </nav>
+    <div class="min-h-screen bg-gray-100 flex items-center justify-center px-4">
+        <div class="w-full max-w-3xl bg-white rounded-2xl shadow-lg p-8">
+
+            <h1 class="text-3xl font-bold mb-8 text-gray-800">
+                ✏️ Edit Place
+            </h1>
+
+            <form action="/listing/<%= listing._id %>?_method=PATCH" method="POST" class="space-y-6" enctype="multipart/form-data" onsubmit="return confirm('Are you sure you want to UPDATE this place?'); ">
+
+                <!-- Title -->
+                <div>
+                    <label class="block text-sm font-semibold mb-1 ">Place Name *</label>
+                    <input type="text " name="listing[title]" value="<%= listing.title %>" required class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500">
+                </div>
+
+                <!-- Description -->
+                <div>
+                    <label class="block text-sm font-semibold mb-1">About *</label>
+                    <textarea name="listing[description]" rows="4" required class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500"><%= listing.description %></textarea>
+                </div>
+
+                <!-- Location -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-semibold mb-1">Locality *</label>
+                        <input type="text" name="listing[location]" value="<%= listing.location %>" required class="w-full border rounded-lg px-4 py-2">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold mb-1">Country *</label>
+                        <input type="text" name="listing[country]" value="<%= listing.country %>" required class="w-full border rounded-lg px-4 py-2">
+                    </div>
+                </div>
+
+                <!-- Image -->
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-semibold mb-1">Upload Image *</label>
+                        <input type="file" name="image" accept="image/*" class="w-full border rounded-lg px-4 py-2">
+
+                    </div>
+
+                    <!-- Price -->
+                    <div>
+                        <label class="block text-sm font-semibold mb-1">Price per night *</label>
+                        <input type="number" name="listing[price]" value="<%= listing.price %>" required class="w-full border rounded-lg px-4 py-2">
+                    </div>
+
+                    <!-- Submit -->
+                    <div class="flex justify-end gap-4">
+                        <a href="/listing/<%= listing._id %>" class="px-6 py-3 rounded-xl border text-gray-700 hover:bg-gray-100">
+          Cancel
+        </a>
+
+                        <button class="bg-indigo-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-indigo-700 transition">
+          Update Place
+        </button>
+
+                    </div>
+
+            </form>
+            <form action="/listing/<%= listing.id %>/delete?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure you want to delete this place?');">
+                <button class="bg-indigo-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-indigo-700 transition">
+        Delete Place
+    </button>
+            </form>
+            </div>
+        </div>
+</body>
+
+</html>

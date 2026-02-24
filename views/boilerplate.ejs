@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Travels Listing</title>
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+    <!-- Navbar -->
+    <nav class="bg-blue-600 text-white px-6 py-3 flex items-center justify-between shadow-md">
+        <!-- Left-most brand -->
+        <div class="text-2xl font-bold tracking-wide">
+            Travels Listing
+        </div>
+
+        <!-- Links -->
+        <div class="space-x-6">
+            <a href="/" class="hover:text-yellow-300 transition">Home</a>
+            <a href="/places/new" class="hover:text-yellow-300 transition">Add New Place</a>
+        </div>
+    </nav>
+
+    <!-- Page content -->
+    <main class="p-6">
+        <%- body %>
+    </main>
+</body>
+
+</html>

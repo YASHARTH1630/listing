@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Listings</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-100 min-h-screen">
+
+    <nav class="bg-blue-600 text-white px-6 py-3 flex items-center justify-between shadow-md" style="position:fixed; width:100vw;max-width:100">
+        <!-- Left-most brand -->
+
+        <div class="text-1.5xl font-bold tracking-wide">
+            Travels Listing
+        </div>
+
+        <!-- Links -->
+        <div class="space-x-6">
+            <a href="/listening" class="hover:text-yellow-300 transition">Home</a>
+            <div class="hover:text-yellow-300 transition">
+                <form method="GET" action="/listeningSorted">
+                    <select name="sort" onchange="this.form.submit()">
+    <option value="">Sort by</option>
+    <option value="price_asc">Price: Low to High</option>
+    <option value="price_desc">Price: High to Low</option>
+  </select>
+                </form>
+            </div>
+
+            <a href="/new_list" class="hover:text-yellow-300 transition">Add New Place</a>
+            <% if(!currUser) { %>
+                <a href="/signup" class="hover:text-yellow-300 transition">SignUp</a>
+                <a href="/signup/login" class="hover:text-yellow-300 transition">Login</a>
+                <% } %>
+                    <% if(currUser) { %>
+
+                        <a href="/signup/logout" class="hover:text-yellow-300 transition">Logout</a>
+                        <% } %>
+        </div>
+    </nav>
+    <!-- Page Container -->
+
+    <div class="max-w-7xl mx-auto px-6 py-10">
+        <%if(success && success.length){ %>
+            <h3>
+                <%=success%>
+            </h3>
+            <% }%>
+                <% if(error && error.length){%>
+                    <h3>
+                        <%=error%>
+                    </h3>
+                    <%}%>
+
+                        <!-- Heading -->
+                        <h1 class="text-4xl font-bold text-center text-slate-800 mb-10">
+                            🌍 Travel Listings
+                        </h1>
+                        <section class="w-full bg-gradient-to-r from-sky-600 via-indigo-600 to-purple-600 text-white">
+                            <div class="max-w-7xl mx-auto px-6 py-16 flex flex-col md:flex-row items-center justify-between">
+
+                                <!-- Text -->
+                                <div class="mb-8 md:mb-0">
+                                    <h1 class="text-4xl md:text-5xl font-extrabold mb-4">
+                                        Share Your Next Destination 🌍
+                                    </h1>
+                                    <p class="text-lg text-white/90 max-w-xl">
+                                        Add a new place and let travelers explore unique stays across the world.
+                                    </p>
+                                </div>
+
+                                <!-- CTA Button -->
+                                <a href="/new_list" class="inline-flex items-center gap-3 bg-white text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-xl hover:scale-105 transition">
+            ➕ Add New Place
+            </a>
+
+                            </div>
+                        </section>
+
+                        <!-- Grid -->
+                        <!-- Grid -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            <% listings.forEach(listing => { %>
+                                <div class="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition">
+                                    <!-- Image -->
+                                    <img src="<%= listing.image.url %>" alt="listing image" class="w-full h-56 object-cover">
+
+                                    <!-- Content -->
+                                    <div class="p-5">
+                                        <!-- Title -->
+                                        <h2 class="text-xl md:text-2xl lg:text-3xl font-semibold text-slate-800 mb-2">
+                                            <%= listing.title %>
+                                        </h2>
+
+                                        <!-- Description -->
+                                        <p class="text-sm md:text-base lg:text-lg text-slate-600 mb-4 line-clamp-3">
+                                            <%= listing.description %>
+                                        </p>
+
+                                        <!-- Location -->
+                                        <p class="text-sm text-slate-500 mb-3">
+                                            📍 <span class="font-medium"><%= listing.location %></span>,
+                                            <%= listing.country %>
+                                        </p>
+
+                                        <!-- Price + Actions -->
+                                        <div class="flex justify-between items-center mt-4">
+                                            <span class="text-lg font-bold text-emerald-600">
+            ₹ <%= listing.price %> / night
+          </span>
+                                            <a href="/listing/<%=listing.id%>" class="px-4 py-2 text-sm rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition">
+            View
+          </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% }) %>
+                        </div>
+    </div>
+
+</body>
+
+</html>
