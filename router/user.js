@@ -13,7 +13,7 @@ router.post("/post", wrapsync(async(req, res) => {
     const newUser = User({ username, email });
     const regUser = await User.register(newUser, password);
     console.log(regUser);
-    req.login(regUser, (err) => { //sign up krte smy ,login ki jarurat nhi hogi
+    req.login(regUser, (err) => { 
         if (err) {
             return next(err);
         }
