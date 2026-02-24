@@ -10,7 +10,7 @@ module.exports.reviewPost = async(req, res) => {
     let newReview = new Review(req.body.review);
     let { id } = req.params;
     newReview.author = req.user;
-    listing.reviews.push(newReview); //jo name "reviews" likha h na list ke scheme main
+    listing.reviews.push(newReview); 
     await newReview.save();
     await listing.save();
     console.log("new review added");
