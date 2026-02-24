@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust"; //DATA DALNE K LIYE H YEH FILE
+const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust"; 
 const List = require("../models/listing.js");
 
 main()
