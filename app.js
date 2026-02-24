@@ -14,6 +14,7 @@ let port = 8010;
 const methodOverride = require("method-override");
 const wrapsync = require("./wrapsync.js");
 const cookieParser = require("cookie-parser"); //requirement for parsing cookie
+const dbUrl=process.env.ATLASDB_URL;
 /*const MongoStore = require("connect-mongo");*/
 const session = require("express-session"); //require for creating sesion ,when visit website
 const flash = require("connect-flash");
@@ -28,7 +29,7 @@ const { storage } = require("./cloudConfig.js"); //extra line in comparison with
 const upload = multer({ storage });
 
 /*
-const storage = multer.diskStorage({ //laptp main store
+const storage = multer.diskStorage({ 
     destination: function(req, file, cb) {
         cb(null, "uploads/");
     },
@@ -38,10 +39,10 @@ const storage = multer.diskStorage({ //laptp main store
     }
 });
 
-const upload = multer({ storage }); //laptop main store */
-/*app.use("/uploads", express.static("uploads")); //uploads main storage krne k liye it will create automatically*/
+const upload = multer({ storage }); 
+/*app.use("/uploads", express.static("uploads")); 
 
-app.use(express.urlencoded({ extended: true })); //post ke liye hain
+app.use(express.urlencoded({ extended: true })); 
 app.use(methodOverride("_method")); //patch ,put ,delete 
 /*
 const store = MongoStore.create({
@@ -79,7 +80,7 @@ app.use(session({
     }
 }));
 */
-app.set("views", path.join(__dirname, "views")); //views folder pane ke liye 
+app.set("views", path.join(__dirname, "views")); 
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 //for styling to be included here  will created public folder in mongo3 , creating style.css there
@@ -90,7 +91,7 @@ main().then((res) => { //always call main function
     console.log(err);
 });
 async function main() {
-    await mongoose.connect("mongodb://127.0.0.1:27017/wanderlust");
+    await mongoose.connect("dbUrl");
     /* console.log("Mongo URI:", process.env.MONGO_URL);
      await mongoose.connect(process.env.MONGO_URL, {
          useNewUrlParser: true,
@@ -107,10 +108,10 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req, res, next) => {
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
-    res.locals.currUser = req.user; //curent user ka deatil will store and dosri jagah use kr paye beyond this fiel local sue kiya h
+    res.locals.currUser = req.user; 
     next(); //imp
 });
-app.use("/signup", signup); //niche hona chahiye sb library ke
+app.use("/signup", signup); 
 /*app.get("/duser", async(req, res) => {
     try {
         let fakeUser = new User({
@@ -180,21 +181,7 @@ const validateReview = (req, res, next) => { //validation using joi
 app.get("/listening", wrapsync(listingController.index));
 
 app.get("/listing/:id", wrapsync(listingController.eachList));
-//1 listing ke andar jo review IDs hain
-//2 un IDs se Review collection me jaata hai
-//3 har ID ka poora review document utha leta hai
 
-/*let item = await List.findById(id);          // ❌ non-populated
-const listing = await List.findById(id).populate("reviews"); // populated
-
-res.render("view_item", { item }); // ❌ galat data bhej diya
-
-*/ //-wrong h yeh toatlly wrong paste kiya sikhne k liye
-/*✅ FINAL CONFIRMATION
-✔ haan, pehle item search hua
-✔ phir uske andar ke review IDs uthaye
-✔ phir reviews populate hue
-✔ ab tum render kar pa rahe ho*/
 app.get("/new_list", listingController.renderNewForm);
 app.post("/post", upload.single("image"), (req, res, next) => {
     console.log("FILE 👉", req.file);
@@ -220,28 +207,3 @@ app.use((err, req, res, next) => { //koi internal cmd error se issue
     console.log("ERROR DEBUG 👉", err.status, err.message);
     res.status(status).send(err.message);
 });
-//POST BODY 👉 {hona chahiye
-/*listing: {
-    title: 'vhj',
-    description: 'jhjh',
-    location: 'hjvjh',
-    country: 'njhvjh',
-    image: {
-      url: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8aG90ZWxzfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60',
-      filename: 'listingimage'
-    },
-    price: '10001'
-  }
-}
-ERROR DEBUG 👉 404 "listing" is required
-REQ.BODY 👉 {was getting
-  title: 'jgjh',
-  description: 'bhjb',
-  location: 'hkjn',
-  country: 'bkj',
-  image: {
-    url: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8aG90ZWxzfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60',
-    filename: 'listingimage'
-  },
-  price: '10001'
-}*/
