@@ -1,4 +1,4 @@
-class ExpressError extends Error {// error ko handle krne k liye classic way 
+class ExpressError extends Error {
     constructor(status, message) {
         super();
         this.status = status;
